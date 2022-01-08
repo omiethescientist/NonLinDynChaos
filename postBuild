@@ -1,2 +1,12 @@
-#!/bin/bash
-julia -e 'using WebIO; WebIO.install_jupyter_nbextension();'
+#!/bin/bash -e
+
+JULIA_PROJECT="/home/jovyan"
+julia -e "import Pkg; Pkg.Registry.update(); Pkg.instantiate(); Pkg.status(); Pkg.precompile()"
+python3 -m pip install --upgrade webio_jupyter_extension
+
+jupyter labextension install @jupyterlab/server-proxy
+jupyter lab build
+jupyter lab clean
+pip install . --no-cache-dir
+rm -rf ~/.cache
+
