@@ -1,8 +1,11 @@
 name: Binder
 on:
+  push:
+    branches:
+      - main
   pull_request:
-    types: [opened, reopened]
-
+    branches:
+      - main
 jobs:
   Create-Binder-Badge:
     runs-on: ubuntu-latest
